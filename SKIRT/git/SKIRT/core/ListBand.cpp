@@ -1,0 +1,18 @@
+/*//////////////////////////////////////////////////////////////////
+////     The SKIRT project -- advanced radiative transfer       ////
+////       © Astronomical Observatory, Ghent University         ////
+///////////////////////////////////////////////////////////////// */
+
+#include "ListBand.hpp"
+#include "NR.hpp"
+
+////////////////////////////////////////////////////////////////////
+
+void ListBand::getWavelengthsAndTransmissions(Array& lambdav, Array& transv) const
+{
+    // copy the user-configured wavelengths and transmission values
+    NR::assign(lambdav, _wavelengths);
+    NR::assign(transv, _transmissionValues);
+}
+
+////////////////////////////////////////////////////////////////////

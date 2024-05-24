@@ -1,0 +1,26 @@
+/*//////////////////////////////////////////////////////////////////
+////     The SKIRT project -- advanced radiative transfer       ////
+////       © Astronomical Observatory, Ghent University         ////
+///////////////////////////////////////////////////////////////// */
+
+#include "LinWavelengthDistribution.hpp"
+#include "Random.hpp"
+
+//////////////////////////////////////////////////////////////////////
+
+double LinWavelengthDistribution::probability(double wavelength) const
+{
+    if (range().containsFuzzy(wavelength))
+        return 1. / range().width();
+    else
+        return 0.;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+double LinWavelengthDistribution::generateWavelength() const
+{
+    return range().min() + random()->uniform() * range().width();
+}
+
+//////////////////////////////////////////////////////////////////////

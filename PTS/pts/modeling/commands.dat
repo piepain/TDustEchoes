@@ -1,0 +1,173 @@
+# Command | Configuration | Class | Configuration method | Description
+
+# MODELING
+setup | -- | modeling.setup.ModelingSetupTool | interactive | Setup a modeling directory for a certain galaxy
+model | -- | modeling.modeler.Modeler | arguments | Perform radiative transfer modeling
+rtmod | -- | modeling.rtmod.RTMod | arguments | Interactive radiative transfer modeling
+
+# DATA
+fetch_properties | fetch | data.properties.PropertyFetcher | interactive | Fetch the galaxy properties
+fetch_seds | fetch_seds | data.seds.SEDFetcher | interactive | Fetch the galaxy SEDs
+fetch_images | fetch_images | data.images.ImageFetcher | interactive | Fetch the images from the DustPedia database
+inspect_data | -- | data.inspector.DataInspector | arguments | inspect the image data
+
+# PREPARATION
+initialize_preparation | -- | preparation.initialization.PreparationInitializer | interactive | Initialize the data for the radiative transfer modeling pipeline
+prepare_data | -- | preparation.preparer.DataPreparer | arguments | Do the preparation step of the SKIRT radiative transfer modeling procedure
+inspect_preparation | -- | preparation.inspector.PreparationInspector | arguments | Inspect the prepared images
+
+# DECOMPOSITION
+decompose | -- | decomposition.decomposition.GalaxyDecomposer | arguments | Run the bulge-disk decomposition for the galaxy as part of the radiative transfer modeling
+decomposition_residuals | -- | decomposition.residuals.DecompositionResidualsCalculator | arguments | Calculate the residuals between the 3.6 micron image and the simulated bulge and disk images
+
+# TRUNCATION
+calculate_truncation_analytics | -- | truncation.analytics.TruncationAnalyticsCalculator | interactive | Calculate truncation analytics
+truncate | -- | truncation.truncator.Truncator | arguments | Set the truncation boundary
+set_significance_levels | -- | truncation.levels.SignificanceLevelsSetter | arguments | Set the significance levels
+
+# MAPS
+make_colours_maps | -- | maps.colour.ColoursMapMaker | arguments | Make colour maps
+make_ssfr_maps | -- | maps.ssfr.SSFRMapMaker | arguments | Make sSFR maps
+make_tir_maps | -- | maps.tir.TIRMapMaker | arguments | Make TIR map
+make_attenuation_maps | -- | maps.attenuation.AttenuationMapMaker | arguments | Make attenuation maps
+make_old_stellar_maps | -- | maps.old.OldStellarMapMaker | arguments | Make map of old stars
+make_young_stellar_maps | -- | maps.young.YoungStellarMapMaker | arguments | Make map of young stars
+make_ionizing_stellar_maps | -- | maps.ionizing.IonizingStellarMapMaker | arguments | Make map of ionizing stars
+make_dust_map | -- | maps.dust.DustMapMaker | arguments | Make dust map
+select_component_maps | -- | maps.selector.ComponentMapsSelector | arguments | Select maps for the different model components
+make_component_maps | -- | maps.components.ComponentMapsMaker | arguments | Make maps for the different model components
+plot_maps | -- | maps.plotter.MapsPlotter | arguments | Make plots of the maps
+plot_component_maps | -- | maps.plotter.ComponentMapsPlotter | arguments | Make plots of the component maps
+view_maps | -- | maps.viewer.MapsViewer | arguments | View a page where maps can be viewed and inspected
+
+# PHOTOMETRY
+photometry | -- | photometry.photometry.PhotoMeter | arguments | Calculate the photometry of the different input images
+
+# MODEL BUILDING
+build_model_galaxy | -- | build.models.galaxy.GalaxyModelBuilder | arguments | Build the model for galaxy modeling
+build_model_sed | -- | build.models.sed.SEDModelBuilder | arguments | Build the model for SED modeling
+build_model_images | -- | build.models.images.ImagesModelBuilder | arguments | Build the model for images modeling
+adapt_model | -- | build.adapter.GalaxyModelAdapter | arguments | Adapt a galaxy model that has previously been built
+*build_stars | -- | build.models.stars.StarsBuilder | interactive | Build stellar components of model
+*build_dust | -- | build.models.dust.DustBuilder | interactive | Build dust components of model
+build_representation_galaxy | -- | build.representations.galaxy.GalaxyRepresentationBuilder | interactive | Build galaxy model representation
+build_representation_sed | -- | build.representations.sed.SEDRepresentationBuilder | arguments | Build model representation for SED modeling
+build_representation_images | -- | build.representations.images.ImagesRepresentationBuilder | arguments | Build model representation for images modeling
+generate_representations | -- | build.representations.generator.RepresentationGenerator | interactive | Generate galaxy model representations
+
+# FITTING
+configure_fit | -- | fitting.configuration.FittingConfigurer | arguments | Configure the fitting procedure
+adapt_fit | -- | fitting.adapter.FittingAdapter | arguments | Adapt the fitting configuration of an existing fitting run
+initialize_fit_galaxy | initialize_fit | fitting.initialization.galaxy.GalaxyFittingInitializer | arguments | Do the initialization before starting the fitting
+initialize_fit_sed | initialize_fit | fitting.initialization.sed.SEDFittingInitializer | arguments | Do the initialization before starting the fitting
+explore | -- | fitting.explorer.ParameterExplorer | arguments | Explore the parameter space for the radiative transfer modeling
+generate_genetic | -- | fitting.modelgenerators.genetic.GeneticModelGenerator | arguments | Generate models using genetic algorithms
+generate_grid | -- | fitting.modelgenerators.grid.GridModelGenerator | arguments | Generate models on a grid in parameter space
+fit_sed | -- | fitting.sedfitting.SEDFitter | arguments | Determine the best fit with the observed SED
+finish_exploration | -- | fitting.finisher.ExplorationFinisher | arguments | Finish the parameter exploration
+reinitialize_fit | -- | fitting.reinitialization.FittingReinitializer | interactive | Re-initialize a fitting run for a particular model, from a previous fitting run, or from an analysis run
+*analyse_sed_fit_model | -- | fitting.modelanalyser.SEDFitModelAnalyser | arguments | Analyse fit model with SED
+*analyse_images_fit_model | -- | fitting.modelanalyser.ImagesFitModelAnalyser | arguments | Analyse fit model with images
+manage_generation | -- | fitting.manager.GenerationManager | arguments | Manage the simulations of a generation
+refit | -- | fitting.refitter.Refitter | arguments | Refit one or more generations based on existing simulation output
+backup_fit | -- | fitting.backup.FitBackupper | arguments | Make a backup of the fit of one or more generations
+restore_fit | -- | fitting.restore.FitRestorer | arguments | Restore the backup of a previous fit
+expand | -- | fitting.expander.ParameterExpander | arguments | Expand the parameter space of a generation in a certain direction
+calculate_weights | -- | fitting.weights.WeightsCalculator | arguments | Calculate the weights for each band
+statistics | -- | fitting.statistics.FittingStatistics | arguments | View statistics for a fitting run
+
+# ANALYSIS
+initialize_analysis | -- | analysis.initialization.AnalysisInitializer | interactive | Initialize an analysis run
+launch_analysis | -- | analysis.launcher.AnalysisLauncher | arguments | Launch a simulation for analysis
+manage_analysis | -- | analysis.manager.AnalysisManager | arguments | Manage the simulations of an analysis run
+evaluate_analysis | -- | analysis.evaluation.AnalysisModelEvaluator | arguments | Evaluate an analysis model (creates images and compares SEDs and residuals in a quick way)
+analyse_properties | -- | analysis.properties.PropertiesAnalyser | arguments | Analyse basic model properties
+analyse_images | -- | analysis.images.ImagesAnalyser | arguments | Create mock images from analysis model
+analyse_fluxes | -- | analysis.fluxes.FluxesAnalyser | arguments | Calculate mock fluxes from analysis model
+analyse_residuals | -- | analysis.residuals.ResidualAnalyser | arguments | Analyse the residual images
+analyse_colours | -- | analysis.colours.colours.ColourAnalyser | arguments | Analyse the FIR colours
+analyse_colour_maps | -- | analysis.maps.colours.ColourMapsAnalyser | arguments | Analyse colour maps derived from the simulated images
+analyse_ssfr_maps | -- | analysis.maps.ssfr.SSFRMapsAnalyser | arguments | Analyse sSFR maps derived from the simulated images
+analyse_tir_maps | -- | analysis.maps.tir.TIRMapsAnalyser | arguments | Analyse TIR maps derived from the simulated images
+analyse_attenuation_maps | -- | analysis.maps.attenuation.AttenuationMapsAnalyser | arguments | Analyse attenuation maps derived from the simulated images
+analyse_old_maps | -- | analysis.maps.old.OldMapsAnalyser | arguments | Analyse old stellar maps derived from the simulated images
+analyse_dust_maps | -- | analysis.maps.dust.DustMapsAnalyser | arguments | Analyse dust maps derived from the simulated images
+analyse_young_maps | -- | analysis.maps.young.YoungMapsAnalyser | arguments | Analyse young stellar maps derived from the simulated images
+analyse_ionizing_maps | -- | analysis.maps.ionizing.IonizingMapsAnalyser | arguments | Analyse ionizing stellar maps derived from the simulated images
+analyse_rgb_maps | -- | analysis.maps.rgb.RGBMapsAnalyser | arguments | Analyse RGB maps from UV/optical/IR simulated images
+analyse_absorption | -- | analysis.absorption.absorption.AbsorptionAnalyser | arguments | Analyse the dust absorption
+analyse_cell_heating | -- | analysis.heating.cell.CellDustHeatingAnalyser | arguments | Analyse the dust cell heating
+analyse_projected_heating | -- | analysis.heating.projected.ProjectedDustHeatingAnalyser | arguments | Analyse the projected dust heating
+analyse_spectral_heating | -- | analysis.heating.spectral.SpectralDustHeatingAnalyser | arguments | Analyse the spectral dust heating
+analyse_cell_energy | -- | analysis.energy.cell.CellEnergyAnalyser | arguments | Analyse the dust cell energy balance
+analyse_projected_energy | -- | analysis.energy.projected.ProjectedEnergyAnalyser | arguments | Analyse the projected energy balance
+analyse_sfr | -- | analysis.sfr.SFRAnalyser | arguments | Analyse the (specific) star formation rates
+analyse_correlations | -- | analysis.correlations.CorrelationsAnalyser | arguments | Analyse correlations
+analyse_temperature | -- | analysis.temperature.TemperatureAnalyser | arguments | Analyse the dust temperature
+cache_analysis_run | -- | analysis.cache.AnalysisRunCacher | arguments | Cache a certain analysis run to a remote host
+analysis | -- | analysis.analysis.Analysis | arguments | Run
+
+# OTHER
+report | -- | reporting.reporting.Reporter | arguments | Make (a) report(s) of certain steps of the radiative transfer modeling procedure (or all steps)
+deproject | -- | misc.deprojector.Deprojector | arguments | Deproject maps
+project_models | -- | misc.projector.Projector | arguments | Project geometries with SKIRT
+info | -- | misc.info.InfoShower | arguments | Show information about the radiative transfer model
+
+# PLOTTING
+plot_data | plot_data | plotting.data.DataPlotter | interactive | Make plots of the data
+plot_preparation | plot_preparation | plotting.preparation.PreparationPlotter | interactive | Make plots of the preparation step
+plot_decomposition | plot_decomposition | plotting.decomposition.DecompositionPlotter | interactive | Make plots of the decomposition step
+plot_truncation | plot_truncation | plotting.truncation.TruncationPlotter | interactive | Make plots of the truncation step
+plot_photometry | plot_photometry | plotting.photometry.PhotometryPlotter | interactive | Make plots of the photometry step
+plot_fitting | plot_fitting | plotting.fitting.plotter.FittingPlotter | interactive | Make plots of the fitting step
+plot_analysis | plot_analysis | plotting.analysis.AnalysisPlotter | interactive | Make plots of the analysis step
+
+# HIDDEN
+*fit_blackbody_grid | -- | maps.dust.fitter.GridBlackBodyFitter | arguments | Fit black body curve to dust SEDs for different galaxies or different pixels of a galaxy
+*fit_blackbody_genetic | -- | maps.dust.fitter.GeneticBlackBodyFitter | arguments | Fit black body curve to dust SEDs for different galaxies or different pixels of a galaxy
+
+# SHOW
+make_movie | -- | show.movie.MovieMaker | arguments | Make a movie from the galaxy model
+make_rgb | -- | show.rgb.RGBImageMaker | arguments | Make RGB images from the galaxy model
+
+# EXTRA
+analyse_mosaic | -- | data.analyser.MosaicAnalyser | arguments | Analyse mosaics and Poisson error mosaic maps
+build_grid | -- | build.dustgrid.DustGridBuilder | arguments | Build dust grid
+build_wavelengths | -- | build.wavelengthgrid.WavelengthGridBuilder | arguments | Build wavelength grid
+launch_model | -- | misc.launch.ModelLauncher | arguments | Launch a certain model
+launch_contributions | -- | misc.contributions.ModelContributionsLauncher | arguments | Launch simulations for the different contributions of a model
+generate_truncation_ellipse_page | -- | truncation.html.ellipse.TruncationEllipsePageGenerator | arguments | Generate the truncation ellipse page
+generate_significance_levels_page | -- | truncation.html.significance.SignificanceLevelsPageGenerator | arguments | Generate the significance levels page
+generate_all_maps_page | -- | maps.html.all.AllMapsPageGenerator | arguments | Generate the all maps page
+generate_maps_summary_page | -- | maps.html.summary.MapsSummaryPageGenerator | arguments | Generate the maps summary page
+generate_old_maps_page | generate_component_maps_page | maps.html.old.OldMapsPageGenerator | arguments | Generate the old stellar maps page
+generate_young_maps_page | generate_component_maps_page | maps.html.young.YoungMapsPageGenerator | arguments | Generate the young stellar maps page
+generate_ionizing_maps_page | generate_component_maps_page | maps.html.ionizing.IonizingMapsPageGenerator | arguments | Generate the ionizing stellar maps page
+generate_dust_maps_page | generate_component_maps_page | maps.html.dust.DustMapsPageGenerator | arguments | Generate the dust maps page
+generate_clip_maps_page | -- | maps.html.clip.ClipMapsPageGenerator | arguments | Generate the clip maps page
+generate_maps_selection_page | -- | maps.html.selection.MapsSelectionPageGenerator | arguments | Generate the maps selection page
+examine | -- | misc.examination.ModelExamination | arguments | Examine a radiative transfer model
+
+# HTML
+generate_all_pages | -- | html.all.AllPagesGenerator | arguments | Generate all the pages
+generate_index_page | -- | html.index.IndexPageGenerator | arguments | Generate the index page for the galaxy
+generate_status_page | -- | html.status.StatusPageGenerator | arguments | Generate the status page
+generate_data_page | -- | html.data.DataPageGenerator | arguments | Generate the data page
+generate_preparation_page | -- | html.preparation.PreparationPageGenerator | arguments | Generate the preparation page
+generate_components_page | -- | html.components.ComponentsPageGenerator | arguments | Generate the components page
+generate_photometry_page | -- | html.photometry.PhotometryPageGenerator | arguments | Generate the photometry page
+generate_maps_page | -- | html.maps.MapsPageGenerator | arguments | Generate the maps page
+generate_model_page | -- | html.model.ModelPageGenerator | arguments | Generate the model page
+generate_fitting_page | -- | html.fitting.FittingPageGenerator | arguments | Generate the fitting page
+generate_seds_page | -- | html.seds.SEDsPageGenerator | arguments | Generate the SEDs page
+generate_datacubes_page | -- | html.datacubes.DatacubesPageGenerator | arguments | Generate the datacubes page
+generate_fluxes_page | -- | html.fluxes.FluxesPageGenerator | arguments | Generate the fluxes page
+generate_images_page | -- | html.images.ImagesPageGenerator | arguments | Generate the images page (with residuals)
+generate_attenuation_page | -- | html.attenuation.AttenuationPageGenerator | arguments | Generate the attenuation page
+generate_colours_page | -- | html.colours.ColoursPageGenerator | arguments | Generate the colours page
+generate_heating_page | -- | html.heating.HeatingPageGenerator | arguments | Generate the heating page
+publish | -- | html.publish.Publisher | arguments | Publish the pages
+
+# PROJECTION
+*project_old | project_old | projection.projector_old.Projector | arguments | Project a model with SKIRT
+project_data | -- | projection.projector.DataProjector | arguments | Project 3D data into a faceon or edgeon projection

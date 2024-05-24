@@ -1,0 +1,33 @@
+/*//////////////////////////////////////////////////////////////////
+////     The SKIRT project -- advanced radiative transfer       ////
+////       © Astronomical Observatory, Ghent University         ////
+///////////////////////////////////////////////////////////////// */
+
+#include "UniformSmoothingKernel.hpp"
+#include "Random.hpp"
+
+//////////////////////////////////////////////////////////////////////
+
+double UniformSmoothingKernel::density(double u) const
+{
+    if (u < 0.0 || u > 1.0) return 0.0;
+    return 0.75 / M_PI;
+}
+
+//////////////////////////////////////////////////////////////////////
+
+double UniformSmoothingKernel::columnDensity(double q) const
+{
+    if (q < 0.0 || q >= 1.0) return 0.0;
+    return 1.5 / M_PI * sqrt((1.0 - q) * (1.0 + q));
+}
+
+//////////////////////////////////////////////////////////////////////
+
+double UniformSmoothingKernel::generateRadius() const
+{
+    double X = random()->uniform();
+    return pow(X, 1.0 / 3.0);
+}
+
+//////////////////////////////////////////////////////////////////////

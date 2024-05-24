@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A SKIRT parameter file Â© Astronomical Observatory, Ghent University -->
+<skirt-simulation-hierarchy type="MonteCarloSimulation" format="9" producer="SKIRT v9.0 (git 4194a4d built on 21/01/2023 at 20:40:44)" time="2023-04-07T17:14:05.844">
+    <MonteCarloSimulation userLevel="Expert" simulationMode="DustAndGasEmission" iteratePrimaryEmission="true" iterateSecondaryEmission="true" numPackets="1e5">
+        <random type="Random">
+            <Random seed="0"/>
+        </random>
+        <units type="Units">
+            <ExtragalacticUnits wavelengthOutputStyle="Wavelength" fluxOutputStyle="Frequency"/>
+        </units>
+        <cosmology type="Cosmology">
+            <FlatUniverseCosmology redshift="0.2326" reducedHubbleConstant="0.7" matterDensityFraction="0.3"/>
+        </cosmology>
+        <sourceSystem type="SourceSystem">
+            <SourceSystem minWavelength="1e-6 micron" maxWavelength="1e6 micron" wavelengths="0.55 micron" sourceBias="0.5">
+                <sources type="Source">
+                    <PointSource positionX="0 pc" positionY="0 pc" positionZ="0 pc" velocityX="0 km/s" velocityY="0 km/s" velocityZ="0 km/s" sourceWeight="1" wavelengthBias="0.5">
+                        <angularDistribution type="AngularDistribution">
+                            <IsotropicAngularDistribution/>
+                        </angularDistribution>
+                        <polarizationProfile type="PolarizationProfile">
+                            <NoPolarizationProfile/>
+                        </polarizationProfile>
+                        <sed type="SED">
+                            <BlackBodySED temperature="2e4 K"/>
+                        </sed>
+                        <normalization type="LuminosityNormalization">
+                            <IntegratedLuminosityNormalization wavelengthRange="All" minWavelength="0.01 micron" maxWavelength="100 micron" integratedLuminosity="1e47 erg/s"/>
+                        </normalization>
+                        <wavelengthBiasDistribution type="WavelengthDistribution">
+                            <LogWavelengthDistribution minWavelength="1e-6 micron" maxWavelength="1e6 micron"/>
+                        </wavelengthBiasDistribution>
+                    </PointSource>
+                </sources>
+            </SourceSystem>
+        </sourceSystem>
+        <mediumSystem type="MediumSystem">
+            <MediumSystem>
+                <photonPacketOptions type="PhotonPacketOptions">
+                    <PhotonPacketOptions explicitAbsorption="true" forceScattering="true" minWeightReduction="1e4" minScattEvents="0" pathLengthBias="0.5"/>
+                </photonPacketOptions>
+                <dynamicStateOptions type="DynamicStateOptions">
+                    <DynamicStateOptions>
+                        <recipes type="DynamicStateRecipe">
+                            <GrainSizeDustDestructionRecipe maxNotConvergedCells="1" densityFractionTolerance="0.5" Prefactor="42.747" FWHM="100"/>
+                        </recipes>
+                    </DynamicStateOptions>
+                </dynamicStateOptions>
+                <radiationFieldOptions type="RadiationFieldOptions">
+                    <RadiationFieldOptions storeRadiationField="true">
+                        <radiationFieldWLG type="DisjointWavelengthGrid">
+                            <LogWavelengthGrid minWavelength="0.1 micron" maxWavelength="100 micron" numWavelengths="500"/>
+                        </radiationFieldWLG>
+                    </RadiationFieldOptions>
+                </radiationFieldOptions>
+                <secondaryEmissionOptions type="SecondaryEmissionOptions">
+                    <SecondaryEmissionOptions storeEmissionRadiationField="false" secondaryPacketsMultiplier="10" spatialBias="0.5" sourceBias="0.5"/>
+                </secondaryEmissionOptions>
+                <iterationOptions type="IterationOptions">
+                    <IterationOptions minPrimaryIterations="1" maxPrimaryIterations="100" minSecondaryIterations="1" maxSecondaryIterations="100" includePrimaryEmission="false" primaryIterationPacketsMultiplier="1" secondaryIterationPacketsMultiplier="1"/>
+                </iterationOptions>
+                <dustEmissionOptions type="DustEmissionOptions">
+                    <DustEmissionOptions dustEmissionType="Stochastic" includeHeatingByCMB="false" maxFractionOfPrimary="0.01" maxFractionOfPrevious="0.03" sourceWeight="1" wavelengthBias="0.5">
+                        <cellLibrary type="SpatialCellLibrary">
+                            <AllCellsLibrary/>
+                        </cellLibrary>
+                        <dustEmissionWLG type="DisjointWavelengthGrid">
+                            <LogWavelengthGrid minWavelength="1 micron" maxWavelength="10 micron" numWavelengths="10"/>
+                        </dustEmissionWLG>
+                        <wavelengthBiasDistribution type="WavelengthDistribution">
+                            <LogWavelengthDistribution minWavelength="0.1 micron" maxWavelength="100 micron"/>
+                        </wavelengthBiasDistribution>
+                    </DustEmissionOptions>
+                </dustEmissionOptions>
+                <media type="Medium"> <!--sublimation_start--> <!--C_start-->
+                    <GeometricMedium velocityMagnitude="0 km/s" magneticFieldStrength="0 uG">
+                        <geometry type="Geometry">
+                            <ShellGeometry minRadius="0.001 pc" maxRadius="5 pc" exponent="2"/>
+                        </geometry>
+                        <materialMix type="MaterialMix">
+                            <FragmentDustMixDecorator fragmentSizeBins="true" hasDynamicDensities="true" initialDensityFraction="1">
+                                <dustMix type="MultiGrainDustMix">
+                                    <ConfigurableDustMix scatteringType="HenyeyGreenstein">
+                                    <populations type="GrainPopulation">
+                                    <GrainPopulation numSizes="1" normalizationType="DustMassPerHydrogenMass" dustMassPerHydrogenAtom="0 Msun" dustMassPerHydrogenMass="0.01" factorOnSizeDistribution="1">
+                                        <composition type="GrainComposition">
+                                            <DraineGraphiteGrainComposition/>
+                                        </composition>
+                                        <sizeDistribution type="GrainSizeDistribution">
+                                            <SingleGrainSizeDistribution size="1 micron"/>
+                                        </sizeDistribution>
+                                    </GrainPopulation>
+                                    </populations>
+                                    </ConfigurableDustMix>
+                                </dustMix>
+                            </FragmentDustMixDecorator>
+                        </materialMix>
+                        <normalization type="MaterialNormalization">
+                            <MassMaterialNormalization mass="1 Msun"/>
+                        </normalization>
+                    </GeometricMedium> <!--C_end--> <!--Si_start-->
+                    <GeometricMedium velocityMagnitude="0 km/s" magneticFieldStrength="0 uG">
+                        <geometry type="Geometry">
+                            <ShellGeometry minRadius="0.001 pc" maxRadius="5 pc" exponent="2"/>
+                        </geometry>
+                        <materialMix type="MaterialMix">
+                            <FragmentDustMixDecorator fragmentSizeBins="true" hasDynamicDensities="true" initialDensityFraction="1">
+                                <dustMix type="MultiGrainDustMix">
+                                    <ConfigurableDustMix scatteringType="HenyeyGreenstein">
+                                    <populations type="GrainPopulation">
+                                    <GrainPopulation numSizes="1" normalizationType="DustMassPerHydrogenMass" dustMassPerHydrogenAtom="0 Msun" dustMassPerHydrogenMass="0.01" factorOnSizeDistribution="1">
+                                        <composition type="GrainComposition">
+                                            <DraineSilicateGrainComposition/>
+                                        </composition>
+                                        <sizeDistribution type="GrainSizeDistribution">
+                                            <SingleGrainSizeDistribution size="1 micron"/>
+                                        </sizeDistribution>
+                                    </GrainPopulation>
+                                    </populations>
+                                    </ConfigurableDustMix>
+                                </dustMix>
+                            </FragmentDustMixDecorator>
+                        </materialMix>
+                        <normalization type="MaterialNormalization">
+                            <MassMaterialNormalization mass="1 Msun"/>
+                        </normalization>
+                    </GeometricMedium> <!--Si_end--> <!--sublimation_end--> <!--static_start-->
+                    <GeometricMedium velocityMagnitude="0 km/s" magneticFieldStrength="0 uG">
+                        <geometry type="Geometry">
+                            <ShellGeometry minRadius="0.001 pc" maxRadius="5 pc" exponent="2"/>
+                        </geometry>
+                        <materialMix type="MaterialMix">
+                            <FragmentDustMixDecorator fragmentSizeBins="true" hasDynamicDensities="true" initialDensityFraction="1">
+                                <dustMix type="MultiGrainDustMix">
+                                    <ConfigurableDustMix scatteringType="HenyeyGreenstein">
+                                        <populations type="GrainPopulation"> <!--C_start-->
+                                            <GrainPopulation numSizes="1" normalizationType="DustMassPerHydrogenMass" dustMassPerHydrogenAtom="0 Msun" dustMassPerHydrogenMass="0.01" factorOnSizeDistribution="1">
+                                                <composition type="GrainComposition">
+                                                    <DraineGraphiteGrainComposition/>
+                                                </composition>
+                                                <sizeDistribution type="GrainSizeDistribution">
+                                                    <PowerLawGrainSizeDistribution minSize="0.1 micron" maxSize="1 micron" exponent="2" />
+                                                </sizeDistribution>
+                                            </GrainPopulation><!--C_end--> <!--Si_start-->
+                                            <GrainPopulation numSizes="1" normalizationType="DustMassPerHydrogenMass" dustMassPerHydrogenAtom="0 Msun" dustMassPerHydrogenMass="0.01" factorOnSizeDistribution="1">
+                                                <composition type="GrainComposition">
+                                                    <DraineSilicateGrainComposition/>
+                                                </composition>
+                                                <sizeDistribution type="GrainSizeDistribution">
+                                                    <PowerLawGrainSizeDistribution minSize="0.1 micron" maxSize="1 micron" exponent="2" />
+                                                </sizeDistribution>
+                                            </GrainPopulation> <!--Si_end-->
+                                        </populations>
+                                    </ConfigurableDustMix>
+                                </dustMix>
+                            </FragmentDustMixDecorator>
+                        </materialMix> <!--mass
+                        <normalization type="MaterialNormalization">
+                            <MassMaterialNormalization mass="1 Msun"/>
+                        </normalization> mass--> <!--optd
+                        <normalization type="MaterialNormalization">
+                            <OpticalDepthMaterialNormalization axis="Z" wavelength="0.28 micron" opticalDepth="10"/>
+                        </normalization> optd-->                   
+                    </GeometricMedium> <!--static_end-->
+                </media>
+                <samplingOptions type="SamplingOptions">
+                    <SamplingOptions numDensitySamples="100" numPropertySamples="1" aggregateVelocity="Average"/>
+                </samplingOptions>
+                <grid type="SpatialGrid">
+                    <Sphere1DSpatialGrid maxRadius="5 pc" minRadius="0 pc">
+                        <meshRadial type="Mesh">
+                            <LogMesh numBins="100" centralBinFraction="1e-1"/>
+                        </meshRadial>
+                    </Sphere1DSpatialGrid>
+                </grid>
+            </MediumSystem>
+        </mediumSystem>
+        <instrumentSystem type="InstrumentSystem">
+            <InstrumentSystem>
+                <defaultWavelengthGrid type="WavelengthGrid">
+                    <LogWavelengthGrid minWavelength="0.09 micron" maxWavelength="2000 micron" numWavelengths="500"/>
+            </defaultWavelengthGrid>
+                <instruments type="Instrument">
+                    <SEDInstrument instrumentName="instrument1" distance="1171 Mpc" inclination="0 deg" azimuth="0 deg" roll="0 deg" radius="0 pc" recordComponents="false" numScatteringLevels="0" recordPolarization="false" recordStatistics="false">
+                        <wavelengthGrid type="WavelengthGrid">
+                            <ListWavelengthGrid wavelengths="0.1 micron, 0.2 micron, 5 micron" relativeHalfWidth="0.001" log="true"/>
+                        </wavelengthGrid>
+                    </SEDInstrument>
+                </instruments> 
+                <lightcurve type="Lightcurve">
+                    <Lightcurve Active="True" numBins="3000" Range="8.213721021e-9 Gyr"/>
+                </lightcurve>
+            </InstrumentSystem>
+        </instrumentSystem>
+        <probeSystem type="ProbeSystem">
+            <ProbeSystem>
+                <probes type="Probe">
+                    <TemperatureProbe probeName="medium-temperature" aggregation="Component" probeAfter="Run">
+                        <form type="Form">
+                            <DefaultCutsForm/>
+                        </form>
+                    </TemperatureProbe>
+                    <DensityProbe probeName="initDensity" probeAfter="Setup" aggregation="Component"/>
+                    <DensityProbe probeName="Density" probeAfter="Run" aggregation="Component"/>
+                    <ConvergenceInfoProbe probeName="UV_info" wavelength="0.28 micron" probeAfter="Setup"/>
+                    <ConvergenceInfoProbe probeName="W1_info" wavelength="3.368 micron" probeAfter="Setup"/>
+                    <ConvergenceInfoProbe probeName="W2_info" wavelength="4.618 micron" probeAfter="Setup"/>
+                    <ConvergenceCutsProbe probeName="dns" probeAfter="Setup"/>
+                    <OpticalMaterialPropertiesProbe probeName="1"/>
+                    <DustGrainPopulationsProbe probeName="2"/>
+                    <DustGrainSizeDistributionProbe probeName="SizeDistribution" numSamples="250" />
+                    </probes>
+            </ProbeSystem>
+        </probeSystem>
+    </MonteCarloSimulation>
+</skirt-simulation-hierarchy>
+

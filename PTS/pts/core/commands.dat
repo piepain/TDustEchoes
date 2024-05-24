@@ -1,0 +1,65 @@
+# Command | Configuration | Class | Configuration method | Description
+
+# PREP
+install_pts | install | prep.installation.PTSInstaller | arguments | Install PTS locally or remotely
+install_skirt | install | prep.installation.SKIRTInstaller | arguments | Install SKIRT locally or remotely
+update_pts | update | prep.update.PTSUpdater | arguments | Update PTS locally or remotely
+update_skirt | update | prep.update.SKIRTUpdater | arguments | Update SKIRT locally or remotely
+uninstall | -- | prep.uninstaller.Uninstaller | arguments | Uninstall SKIRT and/or PTS
+configure_host | -- | prep.hostconfigurer.HostConfigurer | interactive | Configure and add a new host to use with PTS
+deploy | -- | prep.deploy.Deployer | arguments | Deploy SKIRT and/or PTS locally and on remote hosts
+summarize_ski | -- | prep.summarize.SkiSummarizer | arguments | Summarize the contents of a ski file
+depends | -- | prep.dependencies.DependenciesChecker | arguments | Check and show the PTS dependencies
+generate_wavelength_grids | -- | prep.wavelengthgrids.WavelengthGridGenerator | arguments | Generate wavelength grids
+generate_dust_grids | -- | prep.dustgrids.DustGridGenerator | arguments | Generate dust grids
+create_model | -- | prep.creator.ModelCreator | arguments | Create a SKIRT model
+compose | -- | prep.composer.ModelComposer | arguments | Create a radiative transfer model
+
+# TESTS
+scaling | -- | test.scaling.ScalingTest | interactive | Test the scaling of SKIRT on a particular system
+test_performance | -- | test.performance.PerformanceTest | interactive | Run the SKIRT performance test suite
+tests | -- | test.pts.PTSTestSuite | arguments | Run PTS tests
+
+# LAUNCHING
+launch_simulation | -- | launch.launcher.SKIRTLauncher | arguments | Launch a SKIRT simulation locally or remotely with the best performance, based on the current load of the system
+launch_batch | -- | launch.batch.BatchLauncher | interactive | Launch a batch of SKIRT simulations remotely on one or more remote hosts
+status | -- | launch.synchronizer.RemoteSynchronizer | arguments | Check the status of SKIRT simulations and PTS tasks running remotely
+estimate_memory | -- | advanced.memoryestimator.MemoryEstimator | arguments | Estimate the memory required for a certain ski file
+test_memory | -- | test.memory.MemoryTester | arguments | Test the memory estimation for a certain ski file with the actual memory consumption
+parallelization | -- | advanced.parallelizationtool.ParallelizationTool | interactive | Determine the optimal parallelization strategy for a certain ski file
+analyse_simulation | -- | launch.analyser.SimulationAnalyser | arguments | Analyse a SKIRT simulation
+*analyse_basic | -- | launch.basicanalyser.BasicAnalyser | arguments | Run basic SKIRT simulation analysis
+*analyse_batch | -- | launch.batchanalyser.BatchAnalyser | arguments | Run batch SKIRT simulation analysis
+adapt_simulation_settings | -- | simulation.adapter.SimulationAdapter | arguments | Change certain settings of a simulation or multiple simulations.
+adapt_analysis_options | -- | simulation.adapter.AnalysisAdapter | arguments | Change certain analysis options for a single or multiple simulations
+show_simulation_settings | -- | simulation.shower.SimulationShower | arguments | Show certain simulation settings
+show_analysis_options | -- | simulation.shower.AnalysisShower | arguments | Show certain analysis settings
+manage_simulations | -- | launch.manager.SimulationManager | arguments | Manage batch of simulations
+
+# PLOTTING
+plot_seds | -- | plot.sed.SEDPlotter | arguments | Plot a series of observed SEDs
+plot_distributions | -- | plot.distribution.DistributionPlotter | arguments | Plot a series of distributions
+plot_simulation_seds | -- | plot.simulationseds.SimulationSEDPlotter | arguments | Plot the SEDS of a SKIRT simulation
+plot_scaling | -- | plot.scaling.ScalingPlotter | arguments | Plot the performance and or memory scaling of a (batch of) simulation(s)
+plot_timelines | -- | plot.timeline.TimeLinePlotter | arguments | Plot timelines of a (batch of) simulation(s)
+plot_transmission | -- | plot.transmission.TransmissionPlotter | arguments | Plot transmission curves of a set of photometric filters
+plot_wavelengths | -- | plot.wavelengthgrid.WavelengthGridPlotter | arguments | Plot wavelength grids
+
+# SKIRT SIMULATIONS
+discover | -- | simulation.discover.SimulationDiscoverer | arguments | Discover simulations in current working directory (and subdirectories)
+fill_ski | -- | simulation.fill.SkiFiller | arguments | Fill a ski file with the default and hidden settings for SKIRT
+
+# REMOTE
+versions | -- | remote.versionchecker.VersionChecker | arguments | Check versions of compiler, python, qmake, SKIRT and PTS on remote hosts
+
+# FILTERS
+filters | -- | filter.show.FilterShower | arguments | Show the narrow- and broad band filters defined in PTS
+
+# MISC
+make_rgb_images | -- | misc.rgb.RGBImageMaker | arguments | Make RGB images from the simulated datacubes
+make_datacube_animations | -- | misc.animations.DataCubeAnimationsMaker | arguments | Make animations from the simulated datacubes
+observed_fluxes | -- | misc.fluxes.ObservedFluxCalculator | arguments | Calculate (mock) observed fluxes for certain filters from a simulation
+observed_images | -- | misc.images.ObservedImageMaker | arguments | Calculate (mock) observed images for certain filters from a simulation
+
+# HIDDEN
+*run_queue | -- | remote.runner.QueueRunner | arguments | Run a particular simulation queue (intended to be run on a remote system)
