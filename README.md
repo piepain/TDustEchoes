@@ -31,6 +31,7 @@ Requirements:
 #### Get the source code
 
 Clone the github repository, build SKIRT's C++ code, and retrieve SKIRT's resources (these contain files too large for github and are therefore fetched seperately)
+
 ```
 git clone https://github.com/piepain/TDustEchoes [YOURDIR]
 cd [YOURDIR]/SKIRT/git
@@ -45,6 +46,6 @@ The downloadResources.sh executable prompts you to download different resource p
 #### Trying out the simulation
 
 This repository includes a notebook to analyse dust echoes and show the simulation's capabilities.  
-ass15_analysis.ipynb shows how to generate a simulated lightcurve for ASASSN-15lh, and shows how to make simulations for multiple values for several variables.  
-This can easily be recreated for any other source by taking the UV light curves from van Velzen's repository (https://github.com/sjoertvv/manyTDE). By adding the infrared data as well, the simulated dust echoes can also be compared to measurements.
-
+DustEchoes.ipynb shows how to generate a simulated lightcurve for a source, and shows how to make simulations for multiple values for several variables.  
+This can easily be recreated for any other source by taking the UV light curves from van Velzen's repository (https://github.com/sjoertvv/manyTDE), its distance, and its temperature. By adding the infrared data as well, the simulated dust echoes can also be compared to measurements.
+data_analysis.ipynb is a class that performs some analysis functions, and can also create figures. This is still fairly bare-bones though, so it is probably easier to use the DustEchoes notebook.
